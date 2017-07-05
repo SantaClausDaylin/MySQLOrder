@@ -1,0 +1,86 @@
+进入MySQL目录
+mysql\bin
+
+登录Mysql命令
+mysql -u root -p
+
+链接到远程主机上的Mysql
+例如远程主机IP:110.110.110.110,用户:root 密码:abcd123
+
+mysql -h110.110.110.110 -u root -p 123
+
+退出MYSQL
+exit
+
+添加密码
+mysqladmin -u root -password ab12
+
+修改密码
+mysqladmin -u root -p ab12 password djg345
+
+创建数据库
+mysql>create database <数据库名>;
+
+显示数据库
+mysql> show databases;
+
+删除数据库
+mysql> drop database <数据库名>;
+
+链接数据库
+mysql>use <数据库名>
+
+选择当前的数据库
+mysql>select database();
+
+创建数据表
+insert into <表名> [( <字段名1>[,..<字段名n > ])] values ( 值1 )[, ( 值n )]
+
+查询表中的数据
+select <字段1，字段2，...> from < 表名 > where < 表达式 >
+查看表 MyClass 中所有数据
+mysql> select * from MyClass;
+
+删除表中数据
+mysql> delete from MyClass where id=1;
+
+修改表中数据
+语法：update 表名 set 字段=新值,… where 条件
+ mysql> update MyClass set name='Mary' where id=1;
+
+增加字段
+
+alter table 表名 add字段 类型 其他;
+例如：在表MyClass中添加了一个字段passtest，类型为int(4)，默认值为0
+mysql> alter table MyClass add passtest int(4) default '0'
+
+修改表名
+rename table 原表名 to 新表名;
+例如：在表MyClass名字更改为YouClass
+   mysql> rename table MyClass to YouClass;
+
+备份数据库
+
+1.导出整个数据库
+    导出文件默认是存在mysql\bin目录下
+    mysqldump -u 用户名 -p 数据库名 > 导出的文件名
+    mysqldump -u user_name -p123456 database_name > outfile_name.sql
+
+2.导出一个表
+    mysqldump -u 用户名 -p 数据库名 表名> 导出的文件名
+    mysqldump -u user_name -p database_name table_name > outfile_name.sql
+
+3.导出一个数据库结构
+    mysqldump -u user_name -p -d –add-drop-table database_name > outfile_name.sql
+    -d 没有数据 –add-drop-table 在每个create语句之前增加一个drop table
+
+4.带语言参数导出
+    mysqldump -uroot -p –default-character-set=latin1 –set-charset=gbk –skip-opt database_name > outfile_name.sql
+
+将数据库里面的表做成mysql脚本
+//mysqldump<是固定命令>  ccb<数据库名> -uroot<用户> -proot<密码> ccb.sql生成文件
+第一在Mysql目录下面->mysqldump ccb -uroot -proot >ccb.sql
+
+//如果想到处数据库的话
+//可以自动创建数据库并使用数据库
+第二在Mysql目录下面->mysqldump ccb -uroot -proot --database >ccb.sql
